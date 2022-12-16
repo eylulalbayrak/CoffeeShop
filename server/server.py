@@ -59,7 +59,7 @@ class ClientThread(threading.Thread):
         for line in lines:
             line = line.split(";")
             if line[0] == username and line[1] == password:
-                msg = ";".join(["loginsucess",username,line[2]]).encode()
+                msg = ";".join(["loginsuccess",username,line[2]]).encode()
                 print("sucessful login from user ", username)
                 self.client_socket.send(msg)
                 return True
@@ -84,7 +84,7 @@ class ClientThread(threading.Thread):
         self.locks[self.filenames["orders"]].acquire()
         with open(ordersfile,"a") as f:
             order = ";".join([str(total),str(discount),barista,]) + ';'
-            order += ";".join(items)
+            order += ";".join(items)  +"\n"
             f.write(order)
         self.locks[self.filenames["orders"]].release()
 
@@ -126,6 +126,7 @@ class ClientThread(threading.Thread):
         if discountcode == "nodiscountcode":
             return 0
 
+        discount = 0
         discountfile = os.path.join(self.filepath,self.filenames["discountcodes"])
         lines = []
         self.locks[self.filenames["discountcodes"]].acquire()
