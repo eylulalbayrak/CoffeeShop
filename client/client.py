@@ -32,7 +32,7 @@ class Login(Frame):
         self.PasswordLabel = Label(self.PasswordFrame, text="Password", font=("Arial", 10))
         self.PasswordLabel.pack(side=LEFT, padx=5, pady=5)
 
-        self.PasswordEntry = Entry(self.PasswordFrame)
+        self.PasswordEntry = Entry(self.PasswordFrame, show="*")
         self.PasswordEntry.pack(side=LEFT, padx=5, pady=5)
 
         self.ButtonFrame = Frame(self)
@@ -80,6 +80,11 @@ class BaristaPanel(Frame):
         self.CoffeeLabel = Label(self.CoffeeFrame, text="COFFEES", font=("Arial", 12))
         self.CoffeeLabel.pack(side=TOP, padx=5, pady=5)
 
+        self.coffeesmap = {"Latte": "latte",
+                           "Cappuccino": "cappuccino",
+                           "Americano": "americano",
+                           "Espresso": "espresso"}
+
         self.Coffees = [["Latte", IntVar(), StringVar()], ["Cappuccino", IntVar(), StringVar()],
                         ["Americano", IntVar(), StringVar()], ["Espresso", IntVar(), StringVar()]]
 
@@ -94,7 +99,8 @@ class BaristaPanel(Frame):
             self.CoffeeSelectionEntry.config(state=DISABLED)
             self.CoffeeSelectionEntry.pack(padx=7, pady=7, side=RIGHT)
 
-            self.CoffeeSelection.configure(command=lambda c=coffee[1], e=self.CoffeeSelectionEntry: self.EnableTextArea(c, e))
+            self.CoffeeSelection.configure(
+                command=lambda c=coffee[1], e=self.CoffeeSelectionEntry: self.EnableTextArea(c, e))
             if coffee[1].get():
                 coffee[2].set(str(self.CoffeeSelectionEntry.get()))
 
@@ -103,6 +109,10 @@ class BaristaPanel(Frame):
 
         self.CakeLabel = Label(self.CakeFrame, text="CAKES", font=("Arial", 12))
         self.CakeLabel.pack(side=TOP, padx=5, pady=5)
+
+        self.cakesmap = {"San Sebastian Cheesecake": "sansebastian",
+                         "Mosaic Cake": "mosaic",
+                         "Carrot Cake": "carrot"}
 
         self.Cakes = [("San Sebastian Cheesecake", IntVar(), StringVar()), ("Mosaic Cake", IntVar(), StringVar()),
                       ("Carrot Cake", IntVar(), StringVar())]
@@ -141,7 +151,7 @@ class BaristaPanel(Frame):
 
         for coffee in self.Coffees:
             if coffee[1].get():
-                c = str(coffee[0])
+                c = str(self.coffeesmap[coffee[0]])
                 n = str(coffee[2].get())
                 elem = c + '-' + n
                 listcoffee.append(elem)
@@ -150,12 +160,10 @@ class BaristaPanel(Frame):
 
         for cake in self.Cakes:
             if cake[1].get():
-                c = str(cake[0])
+                c = str(self.cakesmap[cake[0]])
                 n = str(cake[2].get())
-                print(c,n)
                 elem = c + '-' + n
                 listcake.append(elem)
-
 
         discount = ""
         if self.DiscountEntry.get() == "":
@@ -171,7 +179,7 @@ class BaristaPanel(Frame):
 
         order = ";".join(listorder)
         print(order)
-        server.order(discount, order)
+        server.order(order, discount)
 
     def CloseButtonPressed(self):
         self.quit()
@@ -245,4 +253,3 @@ if __name__ == '__main__':
     if result:
         LoginWindow = Login(server)
         LoginWindow.mainloop()
-
