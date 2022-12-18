@@ -15,13 +15,13 @@ Workflow:
 - Cross-checked code produced by the other member
 
 Tasks:
-- Login ()
-- Order ()
-- Thread Synchronisation ()
-- Report 1 ()
-- Report 2 ()
-- Report 3 ()
-- Report 4 ()
-- Barista Screen ()
-- Manager Screen ()
-- README ()
+- Login (Eylul)
+- Order (Adam)
+- Thread Synchronisation (Adam)
+- Report 1 (Adam)
+- Report 2 (Adam)
+- Report 3 (Adam)
+- Report 4 (Adam)
+- Barista Screen (Eylul)
+- Manager Screen (Eylul)
+- README (Eylul)
